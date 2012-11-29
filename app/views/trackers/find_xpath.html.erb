@@ -1,0 +1,48 @@
+<h2>Step 1: Find piece by text</h2>
+
+<p>Enter the location of the HTML document and (part of) the text you want to track.</p>
+
+<%= render :partial => 'find_xpath_form', 
+           :locals => { :q => @q, :uri => @uri } %>
+
+<% if flash[:error] %>
+<div class="flash">
+  <div class="message error">
+    <p><%= flash[:error] %></p>
+  </div>
+</div>
+<% else %>
+
+
+<%= error_messages_for :tracker %>
+
+
+
+<% if @hits && !@hits.empty? %>
+<div class="flash">
+  <div class="message notice">
+    <p><%= pluralize(@hits.size, "element") %> found.</p>
+  </div>
+</div>
+
+<ol class='hitlist'>
+
+<%- @hits = @hits.sort_by{|h| h.inner_text.length}%>
+
+<% for hit in @hits %>
+ <li> 
+  <%= render :partial => "proceed_with_hit", :locals => { :hit => hit } %>
+ </li>
+<% end %>
+
+</ol>
+
+<% else %>
+<div class="flash">
+  <div class="message error">
+    <p>No elements have been found matching <i><%= @q %></i></p>
+  </div>
+</div>
+<% end %>
+
+<% end # if flash['error'] %>

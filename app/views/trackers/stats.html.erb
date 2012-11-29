@@ -1,0 +1,81 @@
+
+<p>
+Trakkor is currently running <%= @active_trackers %> trackers.
+</p>
+
+<p>
+This statistics were created at <%= Time.now %> 
+</p>
+
+<h3>Newest trackers</h3>
+<% if @newest_trackers %>
+ <ul>
+<% for t in @newest_trackers %>
+    <li><%= link_to(t.name, t) %> - 
+     <span class="reltime">
+        <%= t.created_at %>
+     </span>
+     </li>
+<% end %>
+</ul>
+<% else %>
+  Huh, now new Trackers am start?
+<% end %>
+
+<h3>Sick trackers (<%= ( @sick_trackers || []).length %>)</h3>
+<% if @sick_trackers %>
+ <ul>
+<% for t in @sick_trackers %>
+    <li><%= link_to(t.name, t) %>
+    (<%= link_to("delete", tracker_path(t), :class => "delete", :method => 'delete') %>)
+	</li>
+<% end %>
+</ul>
+<% else %>
+  No tracker is sick at the moment.
+<% end %>
+
+<h3>Healthy trackers (<%= ( @healthy_trackers || []).length %>)</h3>
+<% if @healthy_trackers %>
+ <ul>
+<% for t in @healthy_trackers %>
+    <li><%= link_to(t.name, t) %></li>
+<% end %>
+</ul>
+<% else %>
+  No tracker is healthy at the moment.
+<% end %>
+
+<h3>Web Hooks (<%= ( @hook_trackers || []).length %>)</h3>
+<% if @hook_trackers %>
+ <ul>
+<% for t in @hook_trackers %>
+    <li><%= link_to(t.name, t) %> - <%= t.web_hook %></li>
+<% end %>
+</ul>
+<% else %>
+  No tracker has defined a web hook.
+<% end %>
+
+<script type="text/javascript">
+  // http://brandonaaron.net/blog/2009/02/25/unobtrusive-destroy-links-in-rails-using-jquery
+  jQuery(document).ready(function() {
+    $('a.delete').live('click', function(event) {
+
+        if ( confirm("Delete this tracker?") )
+            $.ajax({
+                url: this.href.replace(/\/delete$/,''),
+                type: 'post',
+                dataType: 'script',
+                data: { '_method': 'delete' },
+                success: function() {
+                  // the item has been deleted
+                  // reload by setting window.location
+                  window.location = '/stats'
+                }
+            });
+
+        return false;
+    });
+  });
+</script>

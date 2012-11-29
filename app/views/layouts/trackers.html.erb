@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Trakkor <%= (html_title = yield :html_title) ? html_title : '&mdash; Change tracking for web pages, no-frills.' %></title>
+  <%= stylesheet_link_tag 'trakkor' %>
+  <%= stylesheet_link_tag 'base' %>
+  <%= stylesheet_link_tag 'themes/blue/style' %>
+
+  <%= javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js' %>
+  <%= javascript_include_tag 'jquery.timeago.js' %>
+
+  <link rel="shortcut icon" href="<%= image_path('favicon.ico') %>" />
+
+  <% if controller.action_name == 'index' %>
+  <link rel="commands" href="http://gist.github.com/9767.txt" />
+  <% end %>
+
+  <% if @tracker %>
+  <link rel="alternate" type="application/atom+xml" href="<%= "#{url_for(@tracker)}.atom" %>" />
+  <link rel="microsummary" type="text/plain" href="<%= "#{url_for(@tracker)}.microsummary" %>" />
+  <% end %>
+
+</head>
+<body>
+  <div id="container">
+    <div id="header">
+      <h1><a href="/">Trakkor</a></h1>
+
+      <div id="main-navigation">
+        <ul>
+          <li class="first active"><a href="/">Introduction</a></li>
+          <li><a href="/#faq">FAQ</a></li>
+        </ul>
+        <div class="clear"></div>
+      </div>
+    </div>
+    <div id="wrapper">
+      <div id="main">
+
+        <div class="block" id="block-text">
+          <div class="content">
+            <div class="inner">
+
+                <%= yield  %>
+
+            </div>
+          </div>
+        </div>
+
+        <div id="footer">
+          <div class="block">
+            <p><a href='<%= root_path %>'>Trakkor</a>, tracking your changes since May 2008.
+                Running on <a href='http://rubyonrails.org'>Rails</a>.
+                Created by <a href='http://better-idea.org'>Matthias Lüdtke</a>.</p>
+          </div>
+        </div>
+      </div>
+
+  <% if controller.action_name == 'index' %>
+      <div id="sidebar">
+        <div class="block">
+          <h3>Ubiquity integration</h3>
+          <div class="content">
+          <p>As Firefox user you might want to try this  <a href='http://gist.github.com/9767' title="Trakkor's Ubiquity command on GitHub">Ubiquity command</a>.</p>
+          <p>The command allows you to create Trakkors by selecting text on a web page.</p>
+          <p>To use the command, install <a href='https://wiki.mozilla.org/Labs/Ubiquity' title='Ubiquity project on mozilla.org'>the latest Ubiquity</a> and come back here to subscribe to the Trakkor Command.</p>
+          </div>
+        </div>
+
+      </div>
+      <div class="clear"></div>
+  <% end %>
+
+    </div>
+  </div>
+
+<a href="http://github.com/mat/trakkor/commits"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub" /></a>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-342605-4']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script');
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' :
+        'http://www') + '.google-analytics.com/ga.js';
+    ga.setAttribute('async', 'true');
+    document.documentElement.firstChild.appendChild(ga);
+  })();
+
+</script>
+
+  <script type="text/javascript">
+    jQuery(document).ready(function() {
+      jQuery('abbr[class*=timeago]').timeago();
+    });
+  </script>
+
+</body>
+</html>
+
+

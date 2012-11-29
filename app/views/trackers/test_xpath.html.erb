@@ -1,0 +1,43 @@
+<h2>Optional Step 2: Try a parent element</h2>
+
+<%= error_messages_for :tracker %>
+
+
+<%= form_tag( {:controller => 'trackers', :action => 'test_xpath'}, :method => :get, :class => 'form' ) do -%>
+
+
+<div class="group">
+  <label class="label">URL</label>
+  <%= text_field_tag 'uri', @uri, :size => 80, :class => 'text_field' %>
+</div>
+
+
+<div class="group">
+  <label class="label">Find text</label>
+  <%= text_field_tag 'xpath', @xpath, :size => 80, :class => 'text_field' %>
+</div>
+
+<div class="group navform">
+ <%= submit_tag 'Refresh preview' %>
+</div>
+
+<% end -%>
+
+
+<%- if @elem %>
+<h2>Exact piece</h2>
+<%= render :partial => "tracker_for_hit", :locals => { :hit => @elem } %>
+
+<h2>Some parent pieces</h2>
+<ol class='hitlist'>
+<% for p in @parents %>
+ <li> 
+  <%= render :partial => "tracker_for_hit", :locals => { :hit => p } %>
+ </li>
+<% end %>
+
+</ol>
+
+<% end -%>
+
+

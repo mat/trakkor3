@@ -1,0 +1,51 @@
+<% html_title(@tracker.name) -%>
+
+
+<h2 id='tracker_title'><%= @tracker.name %></h2>
+<p id='created_on'>created on <%= @tracker.created_at.strftime('%d %b %Y') %></p>
+
+<p>
+
+This tracker monitors the document at <br />
+  <a id='uri_for_tracker' href='<%= h @tracker.uri %>'><%= h @tracker.uri %></a> <br/>
+for changes to the element given by the XPath <br />
+  <span id='xpath_for_tracker'><%= @tracker.xpath %></span>
+
+</p>
+
+<% if @tracker.sick? %>
+  <div class="flash" id="sick_tracker_message">
+    <div class="message warning">
+      <p>This tracker may be sick, Trakkor failed to retrieve recent pieces:
+        <%= link_to "Show errors", '#', :id => 'show_errors' %>
+      </p>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+  jQuery(document).ready(function(){
+    jQuery("#show_errors").click(function () {
+      jQuery("#changetable").load("/trackers/changes_and_errors/<%= @tracker.md5sum%>");
+      jQuery("#sick_tracker_message").hide();
+    });
+  });
+  </script>
+<% end %>
+
+<% if @tracker.web_hook.present? %>
+  <p class='web_hook'>
+    The Web Hook at
+      <span id='web_hook_for_tracker'><%= h @tracker.web_hook %></span>
+    gets notified on every change.
+  </p>
+<% else %>
+  <p class='web_hook'>
+    No Web Hook has been defined for this tracker.
+  </p>
+<% end %>
+
+<h2 id='changes'><%= link_to 'Changes', "#{url_for(@tracker)}.atom" %></h2>
+<table id='changetable'>
+  <%= render partial: "piece", collection: @changes %>
+</table>
+
