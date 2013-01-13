@@ -10,15 +10,16 @@ class Piece < ActiveRecord::Base
   def fetch(uri,xpath)
     begin
       response = Piece.fetch_from_uri(uri)
-    rescue e
-      self.error = "Error: #{e.to_s}"
-    end
 
-    if response.kind_of? Net::HTTPSuccess
-      _, self.text, self.error = Piece.extract_piece(response.body, xpath)
-      self.bytecount = response.body.length if response.body
-    else
-      self.error ||= "Error: #{response.code} #{response.message}"
+      if response.success?
+        _, self.text, self.error = Piece.extract_piece(response.body, xpath)
+      elsif response.code.to_i == 0
+        self.error = "Error: #{response.code} #{response.options.fetch(:return_code)}"
+      else
+        raise "Code not handled: #{response.code}"
+      end
+    rescue => e
+      self.error = "Error: #{e.to_s}"
     end
 
     self
@@ -36,21 +37,7 @@ class Piece < ActiveRecord::Base
 
 
   def Piece.fetch_from_uri(uri_str)
-    uri = URI.parse(URI.escape(uri_str))
-
-    path = uri.path
-    path = '/' if path.empty?
-    path += "?#{uri.query}" if uri.query
-
-    req = Net::HTTP::Get.new(path)
-    net = Net::HTTP.new(uri.host, uri.port)
- 
-    net.open_timeout = 15
-    net.read_timeout = 15
- 
-    net.start() { |http| response =  http.request(req) 
-      response
-    }
+    Typhoeus::Request.get(uri_str, followlocation: true, connecttimeout: 2_000, maxredirs:4, timeout: 10_000)
   end
 
   def Piece.extract_piece(data, xpath)
@@ -116,7 +103,7 @@ class Piece < ActiveRecord::Base
   def Piece.tidy_text(str)
    str = tidy_tabby_lines(str)
    str = tidy_multiple_nl(str)
-   str.strip
+   str.strip[0,1_000]
   end
 
   def Piece.delete_old_pieces

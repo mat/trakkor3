@@ -1,5 +1,4 @@
 require 'digest/md5'
-require 'net/http'
 require 'json'
 
 class Tracker < ActiveRecord::Base
@@ -129,7 +128,7 @@ class Tracker < ActiveRecord::Base
     o = {:timestamp => old_piece.created_at.xmlschema, :text => old_piece.text}
     payload = {:change => {:tracker => t, :new => n, :old => o}}
   
-    Net::HTTP.post_form(URI.parse(self.web_hook), {'payload' => payload.to_json})
+    Typhoeus::Request.post(self.web_hook, {'payload' => payload.to_json}, :timeout => 4_000)
   end
 
   def should_notify?(old_piece, new_piece)

@@ -40,6 +40,7 @@ gem 'jquery-rails'
 
 gem "hpricot"
 gem "thin"
+gem "typhoeus"
 
 group :test do
  gem "fakeweb"

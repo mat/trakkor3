@@ -104,20 +104,14 @@ class TrackersController < ApplicationController
 
     begin
       response= Piece.fetch_from_uri(uri)
-      data = response.body
 
-      unless response.kind_of? Net::HTTPSuccess
+      unless response.success?
         flash[:error] = "Could not fetch the document, " +
-           "server returned: #{response.code} #{response.message}"
+           "server returned: #{response.code} #{response.body}"
         return nil
       end
 
-      unless response.content_type =~ /text/
-        flash[:error] = "URI does not point to a text document " +
-                       "but a #{response.content_type} file."
-      end
-
-      doc = Hpricot(data)
+      doc = Hpricot(response.body)
 
       unless doc
         flash[:error] = 'URI does not point to a document that Trakkor understands.'

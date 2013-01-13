@@ -2,6 +2,7 @@ require "logger"
 require "benchmark"
    
 require "rubygems"
+require "typhoeus"
 require "rails"
 require "active_record"
 
