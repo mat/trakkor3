@@ -2,8 +2,7 @@
 
 <span>with <%= h(hit.xpath) %></span>
 
-
 <pre class='piece'>
-<%=  htidy(hit.inner_text).gsub(/(#{Regexp.escape(@q)})/i, "<strong class='highlightsearch'>\\1</strong>") %>
+<%=  htidy(hit.inner_text).gsub(/(#{Regexp.escape(@q)})/i, ("<strong class='highlightsearch'>\\1</strong>")).html_safe %>
 </pre>
 
