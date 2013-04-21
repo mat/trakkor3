@@ -132,7 +132,7 @@ class Tracker < ActiveRecord::Base
   end
 
   def should_notify?(old_piece, new_piece)
-    self.web_hook && !new_piece.error && !old_piece.same_content(new_piece)
+    self.web_hook.present? && !new_piece.error && !old_piece.same_content(new_piece)
   end
 
   def sick?
