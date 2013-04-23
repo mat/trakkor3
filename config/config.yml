@@ -1,6 +1,7 @@
 # config/config.yml
 development:
   example_trackers: 
+  - 82
   - 3
   - 1
   - 2354345
@@ -12,8 +13,9 @@ test:
 
 production:
   example_trackers: 
-  - 3
+  - 82
   - 1
+  - 3
   - 2354345
   username: admin
   password: secret
