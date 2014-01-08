@@ -4,7 +4,7 @@ set -e
 
 cd /home/mat/apps/trakkor
 
-source /usr/local/rvm/scripts/rvm
+source /home/mat/.rvm/environments/ruby-1.9.3-p429
 rvm gemset use global
 
 export RAILS_ENV=production
