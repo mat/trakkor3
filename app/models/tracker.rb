@@ -145,15 +145,14 @@ class Tracker < ActiveRecord::Base
   end
 
   def Tracker.find_nodes_by_text(doc, str)
-    nodes = doc.search("//").select { |ele| ele.inner_text =~ /#{str}/i }
+    nodes = []
+    doc.traverse {|node| 
+      if(node.inner_text =~ /#{str}/i) 
+        nodes << node
+      end
+    }
 
-    nodes = nodes.select{ |n| n.class == Hpricot::Elem }
-
-    parents = Set.new
-
-    nodes.each{ |n| Tracker.collect_parents(n, parents) }
-
-    nodes - parents.to_a
+    nodes
   end
 
   def Tracker.live_examples

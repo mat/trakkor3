@@ -1,5 +1,3 @@
-require 'rubygems'
-require 'hpricot'
 
 class Piece < ActiveRecord::Base
   belongs_to :tracker
@@ -27,11 +25,7 @@ class Piece < ActiveRecord::Base
 
   def Piece.create(source)
     p = Piece.new
-
-    if Hpricot::Elem === source then
-      p.text = source.inner_text
-    end
-
+    p.text = source.inner_text
     p
   end
 
@@ -73,7 +67,7 @@ class Piece < ActiveRecord::Base
   def Piece.extract_with_parents(doc, xpath)
     piece = e = doc.at(xpath)
     parents = []
-    while e.parent.class != Hpricot::Doc do
+    while e.parent.class != Nokogiri::HTML::Document do
       parents << e.parent
       e = e.parent
     end

@@ -1,6 +1,3 @@
-#require 'rubygems'
-#require 'hpricot'
-#require 'hpricot/inspect-html'
 
 class TrackersController < ApplicationController
   protect_from_forgery :except => [:changes_and_errors]
@@ -111,7 +108,7 @@ class TrackersController < ApplicationController
         return nil
       end
 
-      doc = Hpricot(response.body)
+      doc = Nokogiri::HTML(response.body)
 
       unless doc
         flash[:error] = 'URI does not point to a document that Trakkor understands.'
