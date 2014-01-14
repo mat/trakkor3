@@ -39,6 +39,7 @@ gem 'jquery-rails'
 # gem 'debugger'
 
 gem "hpricot"
+gem "nokogiri"
 gem "thin"
 gem "typhoeus"
 
