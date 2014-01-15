@@ -7,6 +7,7 @@ require "rubygems"
 require "typhoeus"
 require "rails"
 require "active_record"
+require "colorize"
 
 RAILS_ENV = ENV.fetch('RAILS_ENV')
 SCRAPER_PATH = ENV.fetch('SCRAPER_PATH')
@@ -31,8 +32,10 @@ runtime_ms = Benchmark.realtime do
    old_piece = tracker.current
    new_piece = tracker.fetch_piece
    if new_piece.text.present? && !old_piece.same_content(new_piece)
-     logger.info("Content changed from %s to %s" % [old_piece.text, new_piece.text])
+     logger.info("Content changed from %s to %s" % [old_piece.text, new_piece.text.colorize(:green)])
      new_piece.save!
+   else
+     logger.info("Content unchanged at %s" % [old_piece.text.colorize(:yellow)])
    end
 
    if tracker.should_notify?(old_piece,new_piece)

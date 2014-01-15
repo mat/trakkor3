@@ -37,6 +37,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.4.0)
+    colorize (0.6.0)
     daemons (1.1.9)
     dynamic_form (1.1.4)
     erubis (2.7.0)
@@ -132,6 +133,7 @@ PLATFORMS
 
 DEPENDENCIES
   coffee-rails (~> 3.2.1)
+  colorize
   dynamic_form
   fakeweb
   jquery-rails

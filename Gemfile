@@ -42,6 +42,8 @@ gem "nokogiri"
 gem "thin"
 gem "typhoeus"
 
+gem "colorize"
+
 group :test do
  gem "fakeweb"
 end
