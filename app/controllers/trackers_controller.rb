@@ -145,6 +145,11 @@ class TrackersController < ApplicationController
     @newest_trackers = Tracker.newest
   end
 
+  def pieces
+    authenticate
+    @pieces = Piece.order("created_at desc").limit(20)
+  end
+
   def create
     @tracker = Tracker.new(params[:tracker])
 

@@ -7,6 +7,7 @@ gem 'therubyracer'
 
 gem 'dynamic_form'
 gem 'sqlite3'
+gem 'haml'
 
 
 # Gems used only for assets and not required
@@ -43,6 +44,10 @@ gem "thin"
 gem "typhoeus"
 
 gem "colorize"
+
+group :development do
+  gem 'haml-rails'
+end
 
 group :test do
  gem "fakeweb"
