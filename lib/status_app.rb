@@ -20,7 +20,7 @@ class StatusApp
   end
 
   def self.hostname
-    `hostname`.strip
+    `hostname`.to_s.strip
   end
 end
 
