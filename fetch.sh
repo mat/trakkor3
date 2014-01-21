@@ -2,13 +2,13 @@
 
 set -e
 
-cd /home/mat/apps/trakkor
+cd /home/trakkor/rails_app
 
-source /home/mat/.rvm/environments/ruby-1.9.3-p429
-rvm gemset use global
+#source /home/mat/.rvm/environments/ruby-1.9.3-p429
+#rvm gemset use global
 
 export RAILS_ENV=production
-export SCRAPER_PATH=/home/mat/apps/trakkor
+export SCRAPER_PATH=/home/trakkor/rails_app
 
-bundle exec ruby /home/mat/apps/trakkor/fetch-n-save.rb >> /home/mat/apps/trakkor/scrape.log 2>&1
+bundle exec ruby /home/trakkor/rails_app/fetch-n-save.rb >> /home/trakkor/rails_app/scrape.log 2>&1
 
