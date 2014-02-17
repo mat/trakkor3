@@ -12,10 +12,8 @@ class Piece < ActiveRecord::Base
 
     if response.success?
       response_json = JSON.parse(response.body)
-      content = response_json.fetch("content")
-      error = response_json.fetch("error")
-      self.text = content
-      self.error = error
+      self.text = response_json.fetch("content")
+      self.error = response_json.fetch("error")
     elsif response.code.to_i == 0
       self.error = "Error: #{response.code} #{response.options.fetch(:return_code)}"
     else
