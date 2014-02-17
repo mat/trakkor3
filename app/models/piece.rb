@@ -6,8 +6,9 @@ class Piece < ActiveRecord::Base
   scope :old,  :conditions => ['created_at < ?', 6.months.ago]
 
   def fetch(uri,xpath)
-    service_url = "http://xpfetcher.herokuapp.com?url=#{uri}&xpath=#{xpath}" # use
-    response = Piece.fetch_from_uri(service_url)
+    service_url = "http://xpfetcher.herokuapp.com"
+    service_params = {url: uri, xpath: xpath}
+    response = Piece.fetch_from_uri(service_url, service_params)
 
     if response.success?
       response_json = JSON.parse(response.body)
@@ -31,8 +32,8 @@ class Piece < ActiveRecord::Base
   end
 
 
-  def Piece.fetch_from_uri(uri_str)
-    Typhoeus::Request.get(uri_str, followlocation: true, connecttimeout: 2_000, maxredirs:4, timeout: 10_000)
+  def Piece.fetch_from_uri(uri_str, params)
+    Typhoeus::Request.get(uri_str, followlocation: true, connecttimeout: 2_000, maxredirs:4, timeout: 10_000,  params: params)
   end
 
   def Piece.extract_piece(data, xpath)
