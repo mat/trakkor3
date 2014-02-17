@@ -6,18 +6,19 @@ class Piece < ActiveRecord::Base
   scope :old,  :conditions => ['created_at < ?', 6.months.ago]
 
   def fetch(uri,xpath)
-    begin
-      response = Piece.fetch_from_uri(uri)
+    service_url = "http://xpfetcher.herokuapp.com?url=#{uri}&xpath=#{xpath}" # use
+    response = Piece.fetch_from_uri(service_url)
 
-      if response.success?
-        _, self.text, self.error = Piece.extract_piece(response.body, xpath)
-      elsif response.code.to_i == 0
-        self.error = "Error: #{response.code} #{response.options.fetch(:return_code)}"
-      else
-        raise "Code not handled: #{response.code}"
-      end
-    rescue => e
-      self.error = "Error: #{e.to_s}"
+    if response.success?
+      response_json = JSON.parse(response.body)
+      content = response_json.fetch("content")
+      error = response_json.fetch("error")
+      self.text = content
+      self.error = error
+    elsif response.code.to_i == 0
+      self.error = "Error: #{response.code} #{response.options.fetch(:return_code)}"
+    else
+      raise "Code not handled: #{response.code}"
     end
 
     self
@@ -35,26 +36,19 @@ class Piece < ActiveRecord::Base
   end
 
   def Piece.extract_piece(data, xpath)
+    html, text = Piece.extract_text(data, xpath)
+    raise "No DOM node found for given XPath." if html.nil?
 
-    begin
-      html, text = Piece.extract_text(data, xpath)
-      raise "No DOM node found for given XPath." if html.nil?
-    rescue => e
-      return [nil, nil, e.to_s]
-    end
- 
     [html, text, nil]
   end
 
 
   def Piece.extract_elem(data,xpath)
-    if Hpricot::Doc === data
-      doc = data
-    else
-      doc = Hpricot.parse(data.to_s)
-    end
-
-    doc.at(xpath)
+    puts data.class
+    # puts "XPATH: %s" % xpath
+    res = data.at(xpath)
+    puts "RES: %s" % res
+    res
   end
 
   def Piece.extract_text(data, xpath)
