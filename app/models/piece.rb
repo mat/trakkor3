@@ -68,9 +68,12 @@ class Piece < ActiveRecord::Base
   end
 
   def Piece.fetch_title(uri)
-    p = Piece.new.fetch(uri, '//head/title/text()')
-    return nil if p.error
-    p.text
+    p = Piece.new.fetch(uri, '//title/text()')
+    if p.error
+      nil 
+    else
+      p.text
+    end
   end
 
   def before_save

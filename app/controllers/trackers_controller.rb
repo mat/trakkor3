@@ -81,14 +81,10 @@ class TrackersController < ApplicationController
       return 
     end
 
-    begin
       doc = fetch_doc_from(@uri)
-      @hits = Tracker.find_nodes_by_text(doc, @q) if doc
-
-    rescue => e
-       flash[:error] = "Error: #{e.to_s}"
-    end
- 
+      if doc
+        @hits =  Tracker.find_nodes_by_text(doc, @q)
+      end
   end
 
 
@@ -99,8 +95,7 @@ class TrackersController < ApplicationController
       return nil
     end
 
-    begin
-      response= Piece.fetch_from_uri(uri)
+      response= Piece.fetch_from_uri(uri, {})
 
       unless response.success?
         flash[:error] = "Could not fetch the document, " +
@@ -114,12 +109,6 @@ class TrackersController < ApplicationController
         flash[:error] = 'URI does not point to a document that Trakkor understands.'
         return nil
       end
-
-    rescue => e
-       flash[:error] = "Error: #{e.to_s}"
-       return nil
-    end
-
     doc
   end
 
