@@ -31,7 +31,10 @@ runtime_ms = Benchmark.realtime do
 
    old_piece = tracker.current
    new_piece = tracker.fetch_piece
-   if new_piece.text.present? && !old_piece.same_content(new_piece)
+   if(!old_piece && new_piece.text.present?)
+     logger.info("Content available for the first time: %s" % [new_piece.text.colorize(:green)])
+     new_piece.save!
+   elsif new_piece.text.present? && !old_piece.same_content(new_piece)
      logger.info("Content changed from %s to %s" % [old_piece.text, new_piece.text.colorize(:green)])
      new_piece.save!
    else
