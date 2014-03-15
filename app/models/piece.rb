@@ -90,7 +90,7 @@ class Piece < ActiveRecord::Base
   end
 
   def same_content(other)
-     !other.nil? && other.text == self.text
+    !other.nil? && other.text == self.text
   end
 
 
@@ -100,9 +100,9 @@ class Piece < ActiveRecord::Base
 
 
   def Piece.tidy_text(str)
-   str = tidy_tabby_lines(str)
-   str = tidy_multiple_nl(str)
-   str.strip[0,1_000]
+    str = tidy_tabby_lines(str)
+    str = tidy_multiple_nl(str)
+    str.strip[0,1_000]
   end
 
   def Piece.delete_old_pieces
