@@ -23,6 +23,8 @@ ActiveRecord::Base.establish_connection(dbconfig)
 logger = Logger.new($stderr)
 Rails.logger = logger
 
+logger.info("Using #{RAILS_ENV} environment.")
+
 runtime_ms = Benchmark.realtime do
   trackers = Tracker.all
 
@@ -41,9 +43,9 @@ runtime_ms = Benchmark.realtime do
      logger.info("Content unchanged at %s" % [old_piece.text.colorize(:yellow)])
    end
 
-   if new_piece.error
-     logger.info(new_piece.error.colorize(:red))
-   end
+#   if new_piece.error
+#     logger.info(new_piece.error.colorize(:red))
+#   end
 
    if tracker.should_notify?(old_piece,new_piece)
      logger.info("POSTing to web hook at %s" % tracker.web_hook)
