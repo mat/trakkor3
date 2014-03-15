@@ -17,7 +17,13 @@ class Piece < ActiveRecord::Base
   def self.fetch_text(uri, xpath)
     service_url = "http://xpfetcher.herokuapp.com"
     service_params = {url: uri, xpath: xpath}
-    response = Piece.fetch_from_uri(service_url, service_params)
+
+    begin
+      response = Piece.fetch_from_uri(service_url, service_params)
+    rescue => e
+      error = "Error: #{e.to_s}"
+      return ["", error]
+    end
 
     if response.success?
       response_json = JSON.parse(response.body)
