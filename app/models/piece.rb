@@ -34,7 +34,8 @@ class Piece < ActiveRecord::Base
       error = "Error: #{response.code} #{response.options.fetch(:return_code)}"
       return ["", error]
     else
-      raise "Code not handled: #{response.code}"
+      error = "Error #{response.code}"
+      return ["", error]
     end
   end
 
