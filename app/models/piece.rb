@@ -6,21 +6,30 @@ class Piece < ActiveRecord::Base
   scope :old,  :conditions => ['created_at < ?', 6.months.ago]
 
   def fetch(uri,xpath)
+    text, error = Piece.fetch_text(uri, xpath)
+
+    self.text = text
+    self.error = error
+
+    self
+  end
+
+  def self.fetch_text(uri, xpath)
     service_url = "http://xpfetcher.herokuapp.com"
     service_params = {url: uri, xpath: xpath}
     response = Piece.fetch_from_uri(service_url, service_params)
 
     if response.success?
       response_json = JSON.parse(response.body)
-      self.text = response_json.fetch("content")
-      self.error = response_json.fetch("error")
+      text = response_json.fetch("content")
+      error = response_json.fetch("error")
+      return [text, error]
     elsif response.code.to_i == 0
-      self.error = "Error: #{response.code} #{response.options.fetch(:return_code)}"
+      error = "Error: #{response.code} #{response.options.fetch(:return_code)}"
+      return ["", error]
     else
       raise "Code not handled: #{response.code}"
     end
-
-    self
   end
 
   def Piece.create(source)
