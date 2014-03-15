@@ -2,7 +2,7 @@
 
 require "logger"
 require "benchmark"
-   
+
 require "rubygems"
 require "typhoeus"
 require "rails"
@@ -29,28 +29,24 @@ runtime_ms = Benchmark.realtime do
   trackers = Tracker.all
 
   trackers.each do |tracker|
-   logger.info("Updating tracker %d (%s),  fetching %s..." % [tracker.id, tracker.md5sum, tracker.uri])
+    logger.info("Updating tracker %d (%s),  fetching %s..." % [tracker.id, tracker.md5sum, tracker.uri])
 
-   old_piece = tracker.current
-   new_piece = tracker.fetch_piece
-   if(!old_piece && new_piece.text.present?)
-     logger.info("Content available for the first time: %s" % [new_piece.text.colorize(:green)])
-     new_piece.save!
-   elsif new_piece.text.present? && !old_piece.same_content(new_piece)
-     logger.info("Content changed from %s to %s" % [old_piece.text, new_piece.text.colorize(:green)])
-     new_piece.save!
-   else
-     logger.info("Content unchanged at %s" % [old_piece.text.colorize(:yellow)])
-   end
+    old_piece = tracker.current
+    new_piece = tracker.fetch_piece
+    if(!old_piece && new_piece.text.present?)
+      logger.info("Content available for the first time: %s" % [new_piece.text.colorize(:green)])
+      new_piece.save!
+    elsif new_piece.text.present? && !old_piece.same_content(new_piece)
+      logger.info("Content changed from %s to %s" % [old_piece.text, new_piece.text.colorize(:green)])
+      new_piece.save!
+    else
+      logger.info("Content unchanged at %s" % [old_piece.text.colorize(:yellow)])
+    end
 
-#   if new_piece.error
-#     logger.info(new_piece.error.colorize(:red))
-#   end
-
-   if tracker.should_notify?(old_piece,new_piece)
-     logger.info("POSTing to web hook at %s" % tracker.web_hook)
-     tracker.notify_change(old_piece, new_piece)
-   end
+    if tracker.should_notify?(old_piece,new_piece)
+      logger.info("POSTing to web hook at %s" % tracker.web_hook)
+      tracker.notify_change(old_piece, new_piece)
+    end
   end
 end
 
