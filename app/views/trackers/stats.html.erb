@@ -38,10 +38,16 @@ This statistics were created at <%= Time.now %>
 <h3>Healthy trackers (<%= ( @healthy_trackers || []).length %>)</h3>
 <% if @healthy_trackers %>
  <ul>
-<% for t in @healthy_trackers %>
-    <li><%= link_to(t.name, t) %></li>
-<% end %>
-</ul>
+   <% for t in @healthy_trackers %>
+     <li>
+   <% if t.error_count > 0 %>
+     <%= t.error_count %> ERRORS:
+ <% end %>
+   <%= link_to(t.name, t) %>
+
+   </li>
+ <% end %>
+ </ul>
 <% else %>
   No tracker is healthy at the moment.
 <% end %>
