@@ -157,25 +157,6 @@ class Tracker < ActiveRecord::Base
     Tracker.find_all_by_id(APP_CONFIG['example_trackers'] || [])
   end
  
-  def remove_redundant_pieces!
-    redundant_pieces_ids = redundant_pieces.map(&:id).join(",")
-    sql = "DELETE FROM pieces WHERE id IN(%s)" % redundant_pieces_ids
-    connection.execute(sql)
-  end
-
-  def Tracker.remove_all_redundant_pieces
-    Tracker.find(:all).each do |t|
-      t.redundant_pieces.each { |p| p.destroy }
-    end
-
-    :ok
-  end
-
-  def Tracker.destroy_sick_trackers
-    sick_trackers = Tracker.find(:all).select{ |t| t.sick? }
-    sick_trackers.each { |t| t.destroy }
-  end
-
   private
   def Tracker.collect_parents(n, parents)
     return if n.class == Hpricot::Doc
