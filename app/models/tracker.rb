@@ -135,12 +135,7 @@ class Tracker < ActiveRecord::Base
   end
 
   def sick?
-    ten_newest_pieces = pieces.find( :all, :order => 'created_at DESC', :limit => 10 )
-    if ten_newest_pieces.length >= 10 && ten_newest_pieces.all? { |p| p.error }
-      ten_newest_pieces
-    else
-      false
-    end
+    self.error_count > 10
   end
 
   def pieces_count
