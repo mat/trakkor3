@@ -102,11 +102,6 @@ class Tracker < ActiveRecord::Base
     Time.now.utc
   end
 
-  def bytes_recorded
-     sql = "SELECT SUM(bytecount) FROM pieces WHERE tracker_id=#{self.id}"
-     ActiveRecord::Base.connection.select_one(sql).to_a.first.last.to_i
-  end
-
   def html_title
     Piece.fetch_title(self.uri)
   end
