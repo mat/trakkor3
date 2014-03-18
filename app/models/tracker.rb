@@ -16,7 +16,6 @@ class Tracker < ActiveRecord::Base
 
   after_create :push_a_piece
 
-  scope :newest, :order => 'created_at DESC', :limit => 5
   scope :web_hooked, :conditions => 'web_hook IS NOT NULL'
 
   # order: oldest piece first, most recent last
