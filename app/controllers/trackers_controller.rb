@@ -3,7 +3,6 @@ class TrackersController < ApplicationController
   protect_from_forgery :except => [:changes_and_errors]
 
   def index
-    expires_in 30.minutes, :private => false
     examples = Tracker.live_examples
 
     last_modified = examples.map{|t| t.last_modified}.max
