@@ -4,36 +4,25 @@ Trakkor is currently running <%= @active_trackers %> trackers,
 comprising <%= Piece.count %> number of pieces.
 </p>
 
-<h3>Sick trackers (<%= ( @sick_trackers || []).length %>)</h3>
-<% if @sick_trackers %>
- <ul>
-<% for t in @sick_trackers %>
-    <li><%= link_to(t.name, t) %>
-    (<%= link_to("delete", tracker_path(t), :class => "delete", :method => 'delete') %>)
-	</li>
-<% end %>
-</ul>
-<% else %>
-  No tracker is sick at the moment.
-<% end %>
-
-<h3>Healthy trackers (<%= ( @healthy_trackers || []).length %>)</h3>
+<h3>Trackers (<%= ( @trackers || []).length %>)</h3>
 <table>
   <tr>
     <th>Errors</th>
     <th>Name</th>
     <th>Id</th>
+    <th>Sick</th>
     <th>#Pieces</th>
   </tr>
-  <% for t in @healthy_trackers %>
+  <% for t in @trackers %>
+    <tr>
     <td>  <%= t.error_count > 0 ? t.error_count : '' %> </td>
-  <td> <%= link_to(t.name.truncate(50), t) %></td>
-  <td><%= t.id %></td>
-  <td><%= t.pieces_count %></td>
-
-</tr>
- <% end %>
- </table>
+    <td> <%= link_to(t.name.truncate(50), t) %></td>
+    <td><%= t.id %></td>
+    <td>  <%= t.sick? ? 'sick' : '' %> </td>
+    <td><%= t.pieces_count %></td>
+  </tr>
+<% end %>
+</table>
 
 <h3>Web Hooks (<%= ( @hook_trackers || []).length %>)</h3>
 <% if @hook_trackers %>

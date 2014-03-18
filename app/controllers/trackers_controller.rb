@@ -129,7 +129,7 @@ class TrackersController < ApplicationController
     authenticate
     @active_trackers = Tracker.find(:all).length
     @sick_trackers = Tracker.find(:all).find_all{ |t| t.sick? }
-    @healthy_trackers = Tracker.find(:all).find_all{ |t| !t.sick? }
+    @trackers = Tracker.all
     @hook_trackers = Tracker.web_hooked
   end
 
