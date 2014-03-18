@@ -32,7 +32,7 @@ class Tracker < ActiveRecord::Base
   def validate_on_create
     @first_piece = fetch_piece
     if @first_piece.error
-       errors.add("URI and XPath", "yield no content")
+      errors.add("URI and XPath", "yield no content")
     end
   end
 
@@ -121,7 +121,7 @@ class Tracker < ActiveRecord::Base
     n = {:timestamp => new_piece.created_at.xmlschema, :text => new_piece.text}
     o = {:timestamp => old_piece.created_at.xmlschema, :text => old_piece.text}
     payload = {:change => {:tracker => t, :new => n, :old => o}}
-  
+
     Typhoeus::Request.post(self.web_hook, {'payload' => payload.to_json}, :timeout => 4_000)
   end
 
@@ -151,7 +151,7 @@ class Tracker < ActiveRecord::Base
   def Tracker.live_examples
     Tracker.find_all_by_id(APP_CONFIG['example_trackers'] || [])
   end
- 
+
   private
   def Tracker.collect_parents(n, parents)
     return if n.class == Hpricot::Doc
@@ -161,5 +161,5 @@ class Tracker < ActiveRecord::Base
       collect_parents(n.parent, parents)
     end
   end
-  
+
 end
