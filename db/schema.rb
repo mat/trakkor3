@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140317072115) do
+ActiveRecord::Schema.define(:version => 20140318180106) do
 
   create_table "logged_exceptions", :force => true do |t|
     t.string   "exception_class"
@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(:version => 20140317072115) do
     t.string   "md5sum"
     t.text     "web_hook"
     t.integer  "error_count", :default => 0
+    t.text     "last_error",  :default => ""
   end
 
   add_index "trackers", ["id"], :name => "unique_trackers_tracker_id", :unique => true

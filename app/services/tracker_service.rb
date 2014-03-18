@@ -21,7 +21,7 @@ class TrackerService
 
       err = new_piece.error
       if err
-        self.record_error(tracker)
+        self.record_error(tracker, err)
         logger.warn("ERROR: " + err.colorize(:red))
       else
         self.record_success(tracker)
@@ -35,14 +35,18 @@ class TrackerService
   end
 
   private
-  def self.record_error(tracker)
+  def self.record_error(tracker, error_message)
     tracker.error_count += 1
     tracker.update_attribute(:error_count, tracker.error_count)
+    tracker.last_error = error_message
+    tracker.update_attribute(:last_error, tracker.last_error)
   end
 
   def self.record_success(tracker)
     tracker.error_count = 0
     tracker.update_attribute(:error_count, tracker.error_count)
+    tracker.last_error = ""
+    tracker.update_attribute(:last_error, tracker.last_error)
   end
 
 end
