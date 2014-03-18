@@ -144,6 +144,10 @@ class Tracker < ActiveRecord::Base
     end
   end
 
+  def pieces_count
+    self.pieces.count
+  end
+
   def Tracker.find_nodes_by_text(doc, str)
     nodes = []
     doc.traverse {|node| 

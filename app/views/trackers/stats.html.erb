@@ -36,21 +36,22 @@ This statistics were created at <%= Time.now %>
 <% end %>
 
 <h3>Healthy trackers (<%= ( @healthy_trackers || []).length %>)</h3>
-<% if @healthy_trackers %>
- <ul>
-   <% for t in @healthy_trackers %>
-     <li>
-   <% if t.error_count > 0 %>
-     <%= t.error_count %> ERRORS:
- <% end %>
-   <%= link_to(t.name, t) %>
+<table>
+  <tr>
+    <th>Errors</th>
+    <th>Name</th>
+    <th>Id</th>
+    <th>#Pieces</th>
+  </tr>
+  <% for t in @healthy_trackers %>
+    <td>  <%= t.error_count > 0 ? t.error_count : '' %> </td>
+  <td> <%= link_to(t.name.truncate(50), t) %></td>
+  <td><%= t.id %></td>
+  <td><%= t.pieces_count %></td>
 
-   </li>
+</tr>
  <% end %>
- </ul>
-<% else %>
-  No tracker is healthy at the moment.
-<% end %>
+ </table>
 
 <h3>Web Hooks (<%= ( @hook_trackers || []).length %>)</h3>
 <% if @hook_trackers %>
