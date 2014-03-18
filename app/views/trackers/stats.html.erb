@@ -12,6 +12,7 @@ comprising <%= Piece.count %> number of pieces.
     <th>Id</th>
     <th>Sick</th>
     <th>#Pieces</th>
+    <th>&nbsp;</th>
   </tr>
   <% for t in @trackers %>
     <tr>
@@ -20,6 +21,7 @@ comprising <%= Piece.count %> number of pieces.
     <td><%= t.id %></td>
     <td>  <%= t.sick? ? 'sick' : '' %> </td>
     <td><%= t.pieces_count %></td>
+    <td><%= link_to("delete", tracker_path(t), :class => "delete", :method => 'delete') %></td>
   </tr>
 <% end %>
 </table>
