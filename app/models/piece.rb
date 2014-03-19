@@ -38,24 +38,9 @@ class Piece < ActiveRecord::Base
     end
   end
 
-  def Piece.create(source)
-    p = Piece.new
-    p.text = source.inner_text
-    p
-  end
-
-
   def Piece.fetch_from_uri(uri_str, params)
     Typhoeus::Request.get(uri_str, followlocation: true, connecttimeout: 2_000, maxredirs:4, timeout: 10_000,  params: params)
   end
-
-  def Piece.extract_piece(data, xpath)
-    html, text = Piece.extract_text(data, xpath)
-    raise "No DOM node found for given XPath." if html.nil?
-
-    [html, text, nil]
-  end
-
 
   def Piece.extract_elem(data,xpath)
     puts data.class
@@ -97,11 +82,6 @@ class Piece < ActiveRecord::Base
 
   def same_content(other)
     !other.nil? && other.text == self.text
-  end
-
-
-  def Piece.html_to_text(html)
-    Hpricot(html).inner_text
   end
 
   def Piece.tidy_text(str)
