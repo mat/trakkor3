@@ -2,7 +2,8 @@
 class Piece < ActiveRecord::Base
   belongs_to :tracker
 
-  scope :errs, :conditions => 'NOT error IS NULL', :order => 'created_at ASC' 
+  attr_accessor :error
+
   scope :old,  :conditions => ['created_at < ?', 6.months.ago]
 
   def fetch(uri,xpath)

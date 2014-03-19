@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140318180106) do
+ActiveRecord::Schema.define(:version => 20140319094017) do
 
   create_table "logged_exceptions", :force => true do |t|
     t.string   "exception_class"
@@ -28,14 +28,13 @@ ActiveRecord::Schema.define(:version => 20140318180106) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "tracker_id"
-    t.string   "error"
     t.integer  "bytecount"
     t.float    "duration"
     t.text     "text"
   end
 
   add_index "pieces", ["tracker_id", "created_at"], :name => "pieces_tracker_id_idx"
-  add_index "pieces", ["tracker_id", "error"], :name => "pieces_tracker_error"
+  add_index "pieces", ["tracker_id"], :name => "pieces_tracker_error"
 
   create_table "trackers", :force => true do |t|
     t.datetime "created_at"

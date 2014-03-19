@@ -52,10 +52,6 @@ class Tracker < ActiveRecord::Base
     fetch_piece.save!
   end
 
-  def pieces_errorfree
-    pieces.find( :all, :conditions => { :error => nil}, :order => 'created_at ASC' )
-  end
-
   def errs
     pieces.errs
   end
@@ -69,7 +65,7 @@ class Tracker < ActiveRecord::Base
   end
 
   def changes_impl
-    all_changes = pieces_errorfree
+    all_changes = pieces
     dupefree_changes = []
 
     prev_change = nil
