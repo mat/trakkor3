@@ -59,14 +59,14 @@ class TrackersController < ApplicationController
   def new
     @tracker = Tracker.new(params[:tracker])
 
-    if @tracker.uri && @tracker.xpath 
-       @piece = @tracker.fetch_piece
+    if @tracker.uri && @tracker.xpath
+      @piece = @tracker.fetch_piece
 
-       if @tracker.name.blank?
-         html_title = @tracker.html_title.to_s
-         html_title = "#{html_title[0..50]}..." if html_title.length > 50
-         @tracker.name = "Tracking '#{html_title}'"
-       end
+      if @tracker.name.blank?
+        html_title = @tracker.html_title.to_s
+        html_title = "#{html_title[0..50]}..." if html_title.length > 50
+        @tracker.name = "Tracking '#{html_title}'"
+      end
     end
   end
 
@@ -80,10 +80,10 @@ class TrackersController < ApplicationController
       return 
     end
 
-      doc = fetch_doc_from(@uri)
-      if doc
-        @hits =  Tracker.find_nodes_by_text(doc, @q)
-      end
+    doc = fetch_doc_from(@uri)
+    if doc
+      @hits =  Tracker.find_nodes_by_text(doc, @q)
+    end
   end
 
 
@@ -94,20 +94,20 @@ class TrackersController < ApplicationController
       return nil
     end
 
-      response= Piece.fetch_from_uri(uri, {})
+    response= Piece.fetch_from_uri(uri, {})
 
-      unless response.success?
-        flash[:error] = "Could not fetch the document, " +
-           "server returned: #{response.code} #{response.body}"
-        return nil
-      end
+    unless response.success?
+      flash[:error] = "Could not fetch the document, " +
+        "server returned: #{response.code} #{response.body}"
+      return nil
+    end
 
-      doc = Nokogiri::HTML(response.body)
+    doc = Nokogiri::HTML(response.body)
 
-      unless doc
-        flash[:error] = 'URI does not point to a document that Trakkor understands.'
-        return nil
-      end
+    unless doc
+      flash[:error] = 'URI does not point to a document that Trakkor understands.'
+      return nil
+    end
     doc
   end
 
@@ -120,8 +120,8 @@ class TrackersController < ApplicationController
       return 
     end
 
-     doc = fetch_doc_from(@uri)
-     @elem, @parents = Piece.extract_with_parents(doc, @xpath) if doc
+    doc = fetch_doc_from(@uri)
+    @elem, @parents = Piece.extract_with_parents(doc, @xpath) if doc
   end
 
   def stats
@@ -143,8 +143,8 @@ class TrackersController < ApplicationController
     if @tracker.save
       flash[:notice] = 'Tracker was successfully created.'
 
-     redirect_path = tracker_path(id: @tracker.md5sum)
-     redirect_to redirect_path
+      redirect_path = tracker_path(id: @tracker.md5sum)
+      redirect_to redirect_path
     else
       render :action => "new"
     end
