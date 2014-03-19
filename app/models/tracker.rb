@@ -56,10 +56,6 @@ class Tracker < ActiveRecord::Base
     pieces.errs
   end
 
-  def redundant_pieces
-    pieces.find( :all ) - changes - errs
-  end
-
   def changes(whether_from_cache = [])
     changes_impl
   end
@@ -87,10 +83,6 @@ class Tracker < ActiveRecord::Base
     changes.last
   end
 
-  def last_piece
-    pieces.first.created_at
-  end
-
   def last_modified
     last_anything = last_change || pieces.first
     return last_anything.updated_at.utc if last_anything
@@ -106,10 +98,6 @@ class Tracker < ActiveRecord::Base
     p = Piece.new.fetch(uri, xpath)
     p.tracker = self
     p
-  end
-
-  def Tracker.replace_id_funtion(xpath)
-    xpath.gsub(/^id\((.*?)\)/x,"//[@id=\\1]")
   end
 
   def notify_change(old_piece, new_piece)
