@@ -4,8 +4,6 @@ class Piece < ActiveRecord::Base
 
   attr_accessor :error
 
-  scope :old,  :conditions => ['created_at < ?', 6.months.ago]
-
   def fetch(uri,xpath)
     text, error = Piece.fetch_text(uri, xpath)
 
@@ -106,15 +104,10 @@ class Piece < ActiveRecord::Base
     Hpricot(html).inner_text
   end
 
-
   def Piece.tidy_text(str)
     str = tidy_tabby_lines(str)
     str = tidy_multiple_nl(str)
     str.strip[0,1_000]
-  end
-
-  def Piece.delete_old_pieces
-    Piece.delete_all(['created_at < ?', 6.months.ago])
   end
 
   private
