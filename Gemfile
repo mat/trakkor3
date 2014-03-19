@@ -45,6 +45,10 @@ gem "typhoeus"
 
 gem "colorize"
 
+group :production do
+  gem 'newrelic_rpm'
+end
+
 group :development do
   gem 'haml-rails'
 end

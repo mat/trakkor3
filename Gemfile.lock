@@ -71,6 +71,7 @@ GEM
     mime-types (1.25.1)
     mini_portile (0.5.2)
     multi_json (1.9.0)
+    newrelic_rpm (3.7.3.204)
     nokogiri (1.6.1)
       mini_portile (~> 0.5.0)
     polyglot (0.3.4)
@@ -146,6 +147,7 @@ DEPENDENCIES
   haml
   haml-rails
   jquery-rails
+  newrelic_rpm
   nokogiri
   rails (= 3.2.17)
   sass-rails (~> 3.2.3)
