@@ -85,9 +85,11 @@ class Tracker < ActiveRecord::Base
 
   def last_modified
     last_anything = last_change || pieces.first
-    return last_anything.updated_at.utc if last_anything
-
-    Time.now.utc
+    if last_anything
+      last_anything.updated_at.utc
+    else 
+      Time.now.utc
+    end
   end
 
   def html_title
