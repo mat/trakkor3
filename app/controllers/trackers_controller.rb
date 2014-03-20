@@ -34,7 +34,7 @@ class TrackersController < ApplicationController
         format.atom
         format.microsummary do
           txt = ''
-          txt = @tracker.last_change.text unless @tracker.last_change.nil?
+          txt = @tracker.current.text unless @tracker.current.nil?
           render :text => "Trakkor: #{txt}"
         end
       end

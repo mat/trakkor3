@@ -52,39 +52,12 @@ class Tracker < ActiveRecord::Base
     fetch_piece.save!
   end
 
-  def errs
-    pieces.errs
-  end
-
-  def changes(whether_from_cache = [])
-    changes_impl
-  end
-
-  def changes_impl
-    all_changes = pieces
-    dupefree_changes = []
-
-    prev_change = nil
-    all_changes.each do |c|
-      dupefree_changes << c unless c.same_content(prev_change)
-      prev_change = c
-    end
-
-    # return most recent change first and on top
-    dupefree_changes.reverse
-  end
-
-  def last_change
+  def current
     changes.first
-  end
-  alias :current :last_change
-
-  def first
-    changes.last
   end
 
   def last_modified
-    last_anything = last_change || pieces.first
+    last_anything = current || pieces.first
     if last_anything
       last_anything.updated_at.utc
     else 
@@ -136,6 +109,20 @@ class Tracker < ActiveRecord::Base
 
   def Tracker.live_examples
     Tracker.find_all_by_id(APP_CONFIG['example_trackers'] || [])
+  end
+
+  def changes(whether_from_cache = [])
+    all_changes = pieces
+    dupefree_changes = []
+
+    prev_change = nil
+    all_changes.each do |c|
+      dupefree_changes << c unless c.same_content(prev_change)
+      prev_change = c
+    end
+
+    # return most recent change first and on top
+    dupefree_changes.reverse
   end
 
   private
