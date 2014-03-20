@@ -56,7 +56,6 @@ class Piece < ActiveRecord::Base
     [elem.to_original_html, elem.inner_text]
   end
 
-
   def Piece.extract_with_parents(doc, xpath)
     piece = e = doc.at(xpath)
     parents = []
@@ -68,12 +67,8 @@ class Piece < ActiveRecord::Base
   end
 
   def Piece.fetch_title(uri)
-    p = Piece.new.fetch(uri, '//title/text()')
-    if p.error
-      nil 
-    else
-      p.text
-    end
+    text, _ = Piece.fetch_text(uri, '//title/text()')
+    return text
   end
 
   def before_save
