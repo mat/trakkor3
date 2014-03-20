@@ -75,19 +75,6 @@ class Tracker < ActiveRecord::Base
     p
   end
 
-  def notify_change(old_piece, new_piece)
-    t = {:name => self.name, :uri => self.uri, :xpath => self.xpath }
-    n = {:timestamp => new_piece.created_at.xmlschema, :text => new_piece.text}
-    o = {:timestamp => old_piece.created_at.xmlschema, :text => old_piece.text}
-    payload = {:change => {:tracker => t, :new => n, :old => o}}
-
-    Typhoeus::Request.post(self.web_hook, {'payload' => payload.to_json}, :timeout => 4_000)
-  end
-
-  def should_notify?(old_piece, new_piece)
-    self.web_hook.present? && !new_piece.error && !old_piece.same_content(new_piece)
-  end
-
   def sick?
     self.error_count > 10
   end
