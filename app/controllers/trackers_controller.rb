@@ -129,7 +129,6 @@ class TrackersController < ApplicationController
     @active_trackers = Tracker.find(:all).length
     @sick_trackers = Tracker.find(:all).find_all{ |t| t.sick? }
     @trackers = Tracker.all
-    @hook_trackers = Tracker.web_hooked
   end
 
   def pieces

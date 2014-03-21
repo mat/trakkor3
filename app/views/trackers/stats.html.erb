@@ -13,6 +13,7 @@ comprising <%= Piece.count %> number of pieces.
     <th>Sick</th>
     <th>#Pieces</th>
     <th>Last Err</th>
+    <th>Hook</th>
     <th>&nbsp;</th>
   </tr>
   <% for t in @trackers %>
@@ -23,21 +24,11 @@ comprising <%= Piece.count %> number of pieces.
     <td>  <%= t.sick? ? 'sick' : '' %> </td>
     <td><%= t.pieces_count %></td>
     <td><%= t.last_error %></td>
+    <td>  <%= t.web_hook %> </td>
     <td><%= link_to("delete", tracker_path(t), :class => "delete", :method => 'delete') %></td>
   </tr>
 <% end %>
 </table>
-
-<h3>Web Hooks (<%= ( @hook_trackers || []).length %>)</h3>
-<% if @hook_trackers %>
- <ul>
-<% for t in @hook_trackers %>
-    <li><%= link_to(t.name, t) %> - <%= t.web_hook %></li>
-<% end %>
-</ul>
-<% else %>
-  No tracker has defined a web hook.
-<% end %>
 
 <script type="text/javascript">
   // http://brandonaaron.net/blog/2009/02/25/unobtrusive-destroy-links-in-rails-using-jquery
