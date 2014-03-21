@@ -78,13 +78,4 @@ class Piece < ActiveRecord::Base
   def Piece.tidy_multiple_nl(str)
     str.gsub(/\n\n+/, "\n")
   end
-
-  def Piece.extract_elem(data,xpath)
-    puts data.class
-    # puts "XPATH: %s" % xpath
-    res = data.at(xpath)
-    puts "RES: %s" % res
-    res
-  end
-
 end
