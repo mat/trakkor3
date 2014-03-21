@@ -27,7 +27,7 @@ Rails.logger = logger
 logger.info("Using #{RAILS_ENV} environment.")
 
 runtime_ms = Benchmark.realtime do
-  TrackerService.update_trackers(logger)
+  TrackerService.new(logger).update_trackers
 end
 
 logger.info("Finished in %.2fs" % runtime_ms)
