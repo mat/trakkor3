@@ -31,7 +31,7 @@
 <h2>Some parent pieces</h2>
 <ol class='hitlist'>
 <% for p in @parents %>
- <li> 
+ <li>
   <%= render :partial => "tracker_for_hit", :locals => { :hit => p } %>
  </li>
 <% end %>

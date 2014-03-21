@@ -2,7 +2,7 @@
 
 <p>Enter the location of the HTML document and (part of) the text you want to track.</p>
 
-<%= render :partial => 'find_xpath_form', 
+<%= render :partial => 'find_xpath_form',
            :locals => { :q => @q, :uri => @uri } %>
 
 <% if flash[:error] %>
@@ -30,7 +30,7 @@
 <%- @hits = @hits.sort_by{|h| h.inner_text.length}%>
 
 <% for hit in @hits %>
- <li> 
+ <li>
   <%= render :partial => "proceed_with_hit", :locals => { :hit => hit } %>
  </li>
 <% end %>

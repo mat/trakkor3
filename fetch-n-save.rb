@@ -19,7 +19,7 @@ require "#{SCRAPER_PATH}/app/models/piece.rb"
 require "#{SCRAPER_PATH}/app/services/tracker_service.rb"
 
 dbconfig = YAML::load(File.open('config/database.yml')).fetch(RAILS_ENV)
-ActiveRecord::Base.establish_connection(dbconfig)  
+ActiveRecord::Base.establish_connection(dbconfig)
 
 logger = Logger.new($stderr)
 Rails.logger = logger

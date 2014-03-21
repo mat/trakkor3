@@ -60,7 +60,7 @@ class Tracker < ActiveRecord::Base
     last_anything = current || pieces.first
     if last_anything
       last_anything.updated_at.utc
-    else 
+    else
       Time.now.utc
     end
   end
@@ -85,8 +85,8 @@ class Tracker < ActiveRecord::Base
 
   def Tracker.find_nodes_by_text(doc, str)
     nodes = []
-    doc.traverse {|node| 
-      if(node.inner_text =~ /#{str}/i) 
+    doc.traverse { |node|
+      if(node.inner_text =~ /#{str}/i)
         nodes << node
       end
     }

@@ -77,7 +77,7 @@ class TrackersController < ApplicationController
 
     if @uri.blank? || @q.blank?
       flash[:error] = "Please provide an URI and a search term."
-      return 
+      return
     end
 
     doc = fetch_doc_from(@uri)
@@ -117,7 +117,7 @@ class TrackersController < ApplicationController
 
     if @uri.blank? || @xpath.blank?
       flash[:error] = "Please provide an URI and an XPath."
-      return 
+      return
     end
 
     doc = fetch_doc_from(@uri)

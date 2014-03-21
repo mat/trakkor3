@@ -4,7 +4,7 @@ TrakkorRails3::Application.routes.draw do
   resources 'trackers' do
 #    get 'find_xpath'
   end
-  
+
   #get "trackers/index"
   #get "trackers/show"
  # get "trackers/changes_and_errors"
