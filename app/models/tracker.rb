@@ -96,18 +96,8 @@ class Tracker < ActiveRecord::Base
     Tracker.find_all_by_id(APP_CONFIG['example_trackers'] || [])
   end
 
-  def changes(whether_from_cache = [])
-    all_changes = pieces
-    dupefree_changes = []
-
-    prev_change = nil
-    all_changes.each do |c|
-      dupefree_changes << c unless c.same_content(prev_change)
-      prev_change = c
-    end
-
-    # return most recent change first and on top
-    dupefree_changes.reverse
+  def changes
+    pieces.reverse
   end
 
   private
