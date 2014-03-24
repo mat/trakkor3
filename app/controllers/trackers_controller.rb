@@ -3,12 +3,12 @@ class TrackersController < ApplicationController
   protect_from_forgery :except => [:changes_and_errors]
 
   def index
-    examples = Tracker.live_examples
+    trackers = Tracker.live_examples
 
-    last_modified = examples.map{|t| t.last_modified}.max
+    last_modified = trackers.map{ |t| t.last_modified }.max
     fresh_when(:last_modified => last_modified, :public => true)
 
-    @trackers = examples
+    @trackers = trackers
   end
 
   def show
