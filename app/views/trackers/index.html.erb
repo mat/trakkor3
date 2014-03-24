@@ -30,9 +30,9 @@ by an XPath and informs you via Atom feed if it changes.
   <tr>
     <td><a href="<%= "#{url_for(tracker)}.atom" %>"><%= image_tag("feed-icon-tiny.png", :alt => "Tracker Feed for #{tracker.uri}") %></a></td>
     <td><%= link_to "#{tracker.name}", tracker_path(tracker) %>
-      <br/><span class='change_time'><%= timeago(tracker.current.created_at) %></span>
+      <br/><span class='change_time'><%= timeago(tracker.last_modified) %></span>
     </td>
-    <td class='piece'><%= htidy tracker.current.text %></td>
+    <td class='piece'><%= htidy tracker.current_piece.text %></td>
   </tr>
 <% end %>
 </table>

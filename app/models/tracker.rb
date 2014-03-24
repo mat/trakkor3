@@ -16,8 +16,7 @@ class Tracker < ActiveRecord::Base
 
   after_create :push_a_piece
 
-  # order: oldest piece first, most recent last
-  has_many :pieces, :order => 'created_at ASC', :dependent => :destroy
+  has_many :pieces, :order => 'created_at DESC', :dependent => :destroy
 
   def to_param
     "#{md5sum}"
@@ -50,12 +49,12 @@ class Tracker < ActiveRecord::Base
     fetch_piece.save!
   end
 
-  def current
-    changes.first
+  def current_piece
+    pieces.first
   end
 
   def last_modified
-    last_anything = current || pieces.first
+    last_anything = current_piece
     if last_anything
       last_anything.updated_at.utc
     else
@@ -94,10 +93,6 @@ class Tracker < ActiveRecord::Base
 
   def Tracker.live_examples
     Tracker.find_all_by_id(APP_CONFIG['example_trackers'] || [])
-  end
-
-  def changes
-    pieces.reverse
   end
 
   private

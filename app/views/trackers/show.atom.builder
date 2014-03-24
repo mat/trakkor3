@@ -16,7 +16,7 @@ end
     feed.subtitle("This tracker observes <a href='#{@tracker.uri}'>#{@tracker.uri}</a>.<br /> View and change tracker settings at <a href='#{url_for :only_path => false}'>#{@tracker.name}</a>" + sick_note, :type => 'html')
     feed.link(:href => url_for(:only_path => false, :format => 'atom'), :rel =>'self')
 
-    for piece in @tracker.changes
+    for piece in @tracker.pieces
       feed.entry(piece, :url => "#{url_for :only_path => false}") do |entry|
         entry.title(piece.text, :type => 'text')
         entry.content(piece.text, :type => 'text')

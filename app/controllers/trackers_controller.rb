@@ -20,7 +20,7 @@ class TrackersController < ApplicationController
     end
 
     if stale?(:last_modified => @tracker.last_modified, :public => true)
-      @changes = @tracker.changes
+      @changes = @tracker.pieces
 
       if(params[:errors] == 'show')
         if(@tracker.sick?)
@@ -34,7 +34,7 @@ class TrackersController < ApplicationController
         format.atom
         format.microsummary do
           txt = ''
-          txt = @tracker.current.text unless @tracker.current.nil?
+          txt = @tracker.current_piece.text unless @tracker.current_piece.nil?
           render :text => "Trakkor: #{txt}"
         end
       end
@@ -46,7 +46,7 @@ class TrackersController < ApplicationController
     unless @tracker
       render :text => "Tracker id missing or wrong."
     else
-      @pieces = @tracker.changes
+      @pieces = @tracker.pieces
 
       if(@tracker.sick?)
         @pieces += @tracker.sick?  # add 10 most recent errors

@@ -16,7 +16,7 @@ class TrackerService
   end
 
   def update_tracker(tracker)
-    old_piece = tracker.current
+    old_piece = tracker.current_piece
     new_piece = tracker.fetch_piece
     if(!old_piece && new_piece.text.present?)
       logger.info("Content available for the first time: %s" % [new_piece.text.colorize(:green)])
