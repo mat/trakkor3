@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140325110755) do
+ActiveRecord::Schema.define(:version => 20140325111007) do
 
   create_table "pieces", :force => true do |t|
     t.datetime "created_at"
@@ -23,7 +23,6 @@ ActiveRecord::Schema.define(:version => 20140325110755) do
   end
 
   add_index "pieces", ["tracker_id", "created_at"], :name => "pieces_tracker_id_idx"
-  add_index "pieces", ["tracker_id"], :name => "pieces_tracker_error"
 
   create_table "trackers", :force => true do |t|
     t.datetime "created_at"
