@@ -1,19 +1,11 @@
 
-<% if piece.error %>
-  <tr>
-    <td class='flash'><div class='warning'><%= h piece.error %></div></td>
-  </tr>
-<% end %>
-
-<% unless piece.error %>
-  <tr>
+<tr>
     <td class='piece'><pre><%= htidy piece.text %></pre></td>
-  </tr>
-<% end %>
+</tr>
 
-  <tr>
-    <td class='change_datetime'>
-      <%= timeago(piece.created_at) %>
-    </td>
-  </tr>
+<tr>
+  <td class='change_datetime'>
+    <%= timeago(piece.created_at) %>
+  </td>
+</tr>
 
