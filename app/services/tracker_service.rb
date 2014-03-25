@@ -10,7 +10,7 @@ class TrackerService
     trackers = Tracker.all
 
     trackers.each do |tracker|
-      logger.info("Updating tracker %d (%s),  fetching %s..." % [tracker.id, tracker.md5sum, tracker.uri])
+      logger.info("Updating tracker %d (%s),  fetching %s..." % [tracker.id, tracker.code, tracker.uri])
       update_tracker(tracker)
     end
   end

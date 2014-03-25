@@ -9,7 +9,7 @@ class Tracker < ActiveRecord::Base
   validates_presence_of :uri, :xpath
   validates_format_of :uri, :with =>  R_URI
   validates_format_of :web_hook, :with =>  R_URI, :allow_blank => true
-  validates_uniqueness_of :md5sum
+  validates_uniqueness_of :code
 
   before_create :generate_md5_key
   before_create :set_name
@@ -19,11 +19,11 @@ class Tracker < ActiveRecord::Base
   has_many :pieces, :order => 'created_at DESC', :dependent => :destroy
 
   def to_param
-    "#{md5sum}"
+    "#{code}"
   end
 
   def generate_md5_key
-    self.md5sum = SecureRandom.hex(6)
+    self.code = SecureRandom.hex(6)
   end
 
   def validate_on_create

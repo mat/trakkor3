@@ -12,7 +12,7 @@ class TrackersController < ApplicationController
   end
 
   def show
-    @tracker = Tracker.find_by_md5sum(params[:id])
+    @tracker = Tracker.find_by_code(params[:id])
 
     unless @tracker
       render :text => 'No tracker found for this id.', :status => 404
@@ -42,7 +42,7 @@ class TrackersController < ApplicationController
   end
 
   def changes_and_errors
-    @tracker = Tracker.find_by_md5sum(params[:id])
+    @tracker = Tracker.find_by_code(params[:id])
     unless @tracker
       render :text => "Tracker id missing or wrong."
     else
@@ -142,7 +142,7 @@ class TrackersController < ApplicationController
     if @tracker.save
       flash[:notice] = 'Tracker was successfully created.'
 
-      redirect_path = tracker_path(id: @tracker.md5sum)
+      redirect_path = tracker_path(id: @tracker.code)
       redirect_to redirect_path
     else
       render :action => "new"
@@ -150,7 +150,7 @@ class TrackersController < ApplicationController
   end
 
   def destroy
-    @tracker = Tracker.find_by_md5sum(params[:id])
+    @tracker = Tracker.find_by_code(params[:id])
     redirect_to(stats_path) and return if params[:cancel]
     @tracker.destroy
     respond_to do |format|
@@ -160,7 +160,7 @@ class TrackersController < ApplicationController
   end
 
   def delete
-    @tracker = Tracker.find_by_md5sum(params[:id])
+    @tracker = Tracker.find_by_code(params[:id])
     respond_to do |format|
       format.html # delete.html.erb
     end

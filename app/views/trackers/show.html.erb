@@ -25,7 +25,7 @@ for changes to the element given by the XPath <br />
   <script type="text/javascript">
   jQuery(document).ready(function(){
     jQuery("#show_errors").click(function () {
-      jQuery("#changetable").load("/trackers/changes_and_errors/<%= @tracker.md5sum%>");
+      jQuery("#changetable").load("/trackers/changes_and_errors/<%= @tracker.code%>");
       jQuery("#sick_tracker_message").hide();
     });
   });
