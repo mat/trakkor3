@@ -6,6 +6,9 @@ SHA="master"
 BZ="stuff.i/sources.bz2"
 SSH_USER="trakkor"
 
+AWS_ACCESS_KEY_ID=AKIAJJQTR75K7IHKUO2Q
+AWS_SECRET_ACCESS_KEY='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'
+
 git archive $SHA | bzip2 > $BZ
 scp $BZ $SSH_USER@better-idea.org:/home/trakkor
 aws s3 cp $BZ s3://better-idea-box/trakkor/trakkor-sources.bz2
