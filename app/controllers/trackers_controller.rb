@@ -1,6 +1,5 @@
 
 class TrackersController < ApplicationController
-  protect_from_forgery :except => [:changes_and_errors]
 
   def index
     trackers = Tracker.live_examples
@@ -31,17 +30,6 @@ class TrackersController < ApplicationController
           render :text => "Trakkor: #{txt}"
         end
       end
-    end
-  end
-
-  def changes_and_errors
-    @tracker = Tracker.find_by_code(params[:id])
-    unless @tracker
-      render :text => "Tracker id missing or wrong."
-    else
-      @pieces = @tracker.pieces
-
-      render :layout => false
     end
   end
 

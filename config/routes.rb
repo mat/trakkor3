@@ -7,7 +7,6 @@ TrakkorRails3::Application.routes.draw do
 
   #get "trackers/index"
   #get "trackers/show"
- # get "trackers/changes_and_errors"
   #get "trackers/new"
   match "/stats" => 'trackers#stats'
   #get "trackers/create"
