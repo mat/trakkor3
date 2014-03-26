@@ -22,13 +22,6 @@ class TrackersController < ApplicationController
     if stale?(:last_modified => @tracker.last_modified, :public => true)
       @changes = @tracker.pieces
 
-      if(params[:errors] == 'show')
-        if(@tracker.sick?)
-          @changes += @tracker.sick?  # add 10 most recent errors
-          @changes = @changes.sort{ |a,b|  -(a.created_at <=> b.created_at) }
-        end
-      end
-
       respond_to do |format|
         format.html # show.html.erb
         format.atom
@@ -48,10 +41,6 @@ class TrackersController < ApplicationController
     else
       @pieces = @tracker.pieces
 
-      if(@tracker.sick?)
-        @pieces += @tracker.sick?  # add 10 most recent errors
-        @pieces = @pieces.sort{ |a,b|  -(a.created_at <=> b.created_at) }
-      end
       render :layout => false
     end
   end
