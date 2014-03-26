@@ -1,5 +1,5 @@
 
-class TrackerService
+class TrackerUpdater
   attr_reader :logger
 
   def initialize(logger)

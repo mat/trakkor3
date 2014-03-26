@@ -16,7 +16,7 @@ raise "SCRAPER_PATH (#{SCRAPER_PATH}) does not exist." unless File.exist? SCRAPE
 
 require "#{SCRAPER_PATH}/app/models/tracker.rb"
 require "#{SCRAPER_PATH}/app/models/piece.rb"
-require "#{SCRAPER_PATH}/app/services/tracker_service.rb"
+require "#{SCRAPER_PATH}/app/services/tracker_updater.rb"
 
 dbconfig = YAML::load(File.open('config/database.yml')).fetch(RAILS_ENV)
 ActiveRecord::Base.establish_connection(dbconfig)
@@ -27,7 +27,7 @@ Rails.logger = logger
 logger.info("Using #{RAILS_ENV} environment.")
 
 runtime_ms = Benchmark.realtime do
-  TrackerService.new(logger).update_trackers
+  TrackerUpdater.new(logger).update_trackers
 end
 
 logger.info("Finished in %.2fs" % runtime_ms)
