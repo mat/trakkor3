@@ -20,7 +20,6 @@ for changes to the element given by the XPath <br />
       </p>
     </div>
   </div>
-
 <% end %>
 
 <% if @tracker.web_hook.present? %>
@@ -29,13 +28,10 @@ for changes to the element given by the XPath <br />
       <span id='web_hook_for_tracker'><%= h @tracker.web_hook %></span>
     gets notified on every change.
   </p>
-<% else %>
-  <p class='web_hook'>
-    No Web Hook has been defined for this tracker.
-  </p>
 <% end %>
 
 <h2 id='changes'><%= link_to 'Changes', "#{url_for(@tracker)}.atom" %></h2>
+
 <table id='changetable'>
   <%= render partial: "piece", collection: @changes %>
 </table>
