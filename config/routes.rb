@@ -10,7 +10,6 @@ TrakkorRails3::Application.routes.draw do
  # get "trackers/changes_and_errors"
   #get "trackers/new"
   match "/stats" => 'trackers#stats'
-  match "/pieces" => 'trackers#pieces'
   #get "trackers/create"
   #get "trackers/destroy"
   #get "trackers/delete"
