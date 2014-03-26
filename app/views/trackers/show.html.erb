@@ -2,15 +2,13 @@
 
 
 <h2 id='tracker_title'><%= @tracker.name %></h2>
-<p id='created_on'>created on <%= @tracker.created_at.strftime('%d %b %Y') %></p>
+<p id='created_on'>created <%= @tracker.created_at.strftime('%d %b %Y') %></p>
 
 <p>
-
 This tracker monitors the document at <br />
   <a id='uri_for_tracker' href='<%= h @tracker.uri %>'><%= h @tracker.uri %></a> <br/>
 for changes to the element given by the XPath <br />
   <span id='xpath_for_tracker'><%= @tracker.xpath %></span>
-
 </p>
 
 <% if @tracker.sick? %>
