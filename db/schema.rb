@@ -11,14 +11,12 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140325130626) do
+ActiveRecord::Schema.define(:version => 20140327170428) do
 
   create_table "pieces", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "tracker_id"
-    t.integer  "bytecount"
-    t.float    "duration"
     t.text     "text"
   end
 
