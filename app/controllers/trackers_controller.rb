@@ -57,35 +57,12 @@ class TrackersController < ApplicationController
       return
     end
 
-    doc, err = fetch_doc_from(@uri)
+    doc, err = Tracker.fetch_doc_from(@uri)
     if doc
       @hits =  Tracker.find_nodes_by_text(doc, @q)
     else
       flash[:error] = err
     end
-  end
-
-
-  def fetch_doc_from(uri)
-    unless Tracker.uri?(uri)
-      err = "Please provide a proper HTTP URI like http://w3c.org"
-      return nil, err
-    end
-
-    response= Piece.fetch_from_uri(uri, {})
-    unless response.success?
-      err =  "Could not fetch the document, " +
-        "server returned: #{response.code} #{response.body}"
-      return nil, err
-    end
-
-    doc = Nokogiri::HTML(response.body)
-    unless doc
-      err = 'URI does not point to a document that Trakkor understands.'
-      return nil, err
-    end
-
-    return doc, nil
   end
 
   def test_xpath
@@ -97,7 +74,7 @@ class TrackersController < ApplicationController
       return
     end
 
-    doc, err = fetch_doc_from(@uri)
+    doc, err = Tracker.fetch_doc_from(@uri)
     if doc
       @elem, @parents = Piece.extract_with_parents(doc, @xpath)
     else

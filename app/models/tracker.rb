@@ -80,6 +80,28 @@ class Tracker < ActiveRecord::Base
     self.pieces.count
   end
 
+  def self.fetch_doc_from(uri)
+    unless Tracker.uri?(uri)
+      err = "Please provide a proper HTTP URI like http://w3c.org"
+      return nil, err
+    end
+
+    response= Piece.fetch_from_uri(uri, {})
+    unless response.success?
+      err =  "Could not fetch the document, " +
+        "server returned: #{response.code} #{response.body}"
+      return nil, err
+    end
+
+    doc = Nokogiri::HTML(response.body)
+    unless doc
+      err = 'URI does not point to a document that Trakkor understands.'
+      return nil, err
+    end
+
+    return doc, nil
+  end
+
   def Tracker.find_nodes_by_text(doc, str)
     nodes = []
     doc.traverse { |node|
