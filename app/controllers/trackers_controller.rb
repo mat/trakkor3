@@ -89,6 +89,11 @@ class TrackersController < ApplicationController
     @trackers = Tracker.all
   end
 
+  def update
+    TrackerUpdater.new(Rails.logger).update_trackers
+    render text: "Ok"
+  end
+
   def create
     @tracker = Tracker.new(params[:tracker])
 

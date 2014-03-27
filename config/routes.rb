@@ -1,4 +1,5 @@
 TrakkorRails3::Application.routes.draw do
+  get "trackers/update"
   get "trackers/find_xpath"
   get "trackers/test_xpath"
   resources 'trackers' do
