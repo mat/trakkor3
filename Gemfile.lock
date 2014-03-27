@@ -49,13 +49,6 @@ GEM
       multi_json (~> 1.0)
     fakeweb (1.2.8)
     ffi (1.2.1)
-    haml (4.0.5)
-      tilt
-    haml-rails (0.4)
-      actionpack (>= 3.1, < 4.1)
-      activesupport (>= 3.1, < 4.1)
-      haml (>= 3.1, < 4.1)
-      railties (>= 3.1, < 4.1)
     hike (1.2.3)
     i18n (0.6.9)
     journey (1.0.4)
@@ -144,8 +137,6 @@ DEPENDENCIES
   colorize
   dynamic_form
   fakeweb
-  haml
-  haml-rails
   jquery-rails
   newrelic_rpm
   nokogiri

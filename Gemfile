@@ -7,7 +7,6 @@ gem 'therubyracer'
 
 gem 'dynamic_form'
 gem 'sqlite3'
-gem 'haml'
 
 
 # Gems used only for assets and not required
@@ -50,7 +49,6 @@ group :production do
 end
 
 group :development do
-  gem 'haml-rails'
 end
 
 group :test do
