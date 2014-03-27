@@ -33,7 +33,10 @@ class Tracker < ActiveRecord::Base
   end
 
   def set_name
-    self.name ||= "Tracker for #{html_title || uri}"
+    if self.name.blank?
+      description = (html_title.presence || uri).truncate(50)
+      self.name = "Tracker for '#{description}'"
+    end
   end
 
   def before_update

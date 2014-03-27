@@ -32,13 +32,7 @@ class TrackersController < ApplicationController
     @tracker = Tracker.new(params[:tracker])
 
     if @tracker.uri && @tracker.xpath
-      @piece = @tracker.fetch_piece
-
-      if @tracker.name.blank?
-        html_title = @tracker.html_title.to_s
-        html_title = "#{html_title[0..50]}..." if html_title.length > 50
-        @tracker.name = "Tracking '#{html_title}'"
-      end
+      @tracker.set_name
     end
   end
 
