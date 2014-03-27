@@ -22,13 +22,8 @@ class TrackersController < ApplicationController
       @changes = @tracker.pieces
 
       respond_to do |format|
-        format.html # show.html.erb
+        format.html
         format.atom
-        format.microsummary do
-          txt = ''
-          txt = @tracker.current_piece.text unless @tracker.current_piece.nil?
-          render :text => "Trakkor: #{txt}"
-        end
       end
     end
   end
