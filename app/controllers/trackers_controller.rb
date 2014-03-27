@@ -110,7 +110,7 @@ class TrackersController < ApplicationController
   private
 
   def authenticate
-    authenticate_or_request_with_http_basic("Trakkor stats") do |username, password|
+    authenticate_or_request_with_http_basic("Trakkor admin") do |username, password|
       username == "admin" && password == APP_CONFIG['password']
     end
   end
