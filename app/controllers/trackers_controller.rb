@@ -24,6 +24,7 @@ class TrackersController < ApplicationController
       respond_to do |format|
         format.html
         format.atom
+        format.json { render json: {tracker: @tracker, pieces: @changes} }
       end
     end
   end
