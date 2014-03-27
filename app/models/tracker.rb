@@ -1,4 +1,3 @@
-require 'digest/md5'
 require 'json'
 
 class Tracker < ActiveRecord::Base
@@ -11,7 +10,7 @@ class Tracker < ActiveRecord::Base
   validates_format_of :web_hook, :with =>  R_URI, :allow_blank => true
   validates_uniqueness_of :code
 
-  before_create :generate_md5_key
+  before_create :generate_code
   before_create :set_name
 
   after_create :push_a_piece
@@ -22,7 +21,7 @@ class Tracker < ActiveRecord::Base
     "#{code}"
   end
 
-  def generate_md5_key
+  def generate_code
     self.code = SecureRandom.hex(6)
   end
 
