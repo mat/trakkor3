@@ -95,21 +95,7 @@ class TrackersController < ApplicationController
     end
   end
 
-  def destroy
-    if params[:cancel]
-      redirect_to(stats_path) and return
-    end
-
-    tracker = Tracker.find_by_code(params[:id])
-    tracker.destroy
-    respond_to do |format|
-      format.html { redirect_to stats_path }
-      format.js { render :nothing => true }
-    end
-  end
-
   private
-
   def authenticate
     authenticate_or_request_with_http_basic("Trakkor admin") do |username, password|
       username == "admin" && password == APP_CONFIG['password']
