@@ -8,8 +8,13 @@ class TrackerUpdater
 
   def update_trackers
     trackers = Tracker.all
+    sick_trackers, ok_trackers = trackers.partition{ |t| t.sick? }
 
-    trackers.each do |tracker|
+    sick_trackers.each do |tracker|
+      logger.warn("WARN: " + "Skipping sick tracker #{tracker}".colorize(:red))
+    end
+
+    ok_trackers.each do |tracker|
       logger.info("Updating tracker %d (%s),  fetching %s..." % [tracker.id, tracker.code, tracker.uri])
       update_tracker(tracker)
     end
@@ -18,6 +23,7 @@ class TrackerUpdater
   def update_tracker(tracker)
     old_piece = tracker.current_piece
     new_piece = tracker.fetch_piece
+
     if(!old_piece && new_piece.text.present?)
       logger.info("Content available for the first time: %s" % [new_piece.text.colorize(:green)])
       new_piece.save!
