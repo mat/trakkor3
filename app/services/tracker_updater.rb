@@ -1,6 +1,7 @@
 
 class TrackerUpdater
   attr_reader :logger
+  attr_reader :last_piece_changed_at
 
   def initialize(logger)
     @logger = logger
@@ -26,10 +27,10 @@ class TrackerUpdater
 
     if(!old_piece && new_piece.text.present?)
       logger.info("Content available for the first time: %s" % [new_piece.text.colorize(:green)])
-      new_piece.save!
+      save_new_piece(new_piece)
     elsif new_piece.text.present? && !old_piece.same_content(new_piece)
       logger.info("Content changed from %s to %s" % [old_piece.text, new_piece.text.colorize(:green)])
-      new_piece.save!
+      save_new_piece(new_piece)
     else
       logger.info("Content unchanged at %s" % [old_piece.text.colorize(:yellow)])
     end
@@ -49,6 +50,11 @@ class TrackerUpdater
   end
 
   private
+  def save_new_piece(new_piece)
+    new_piece.save!
+    @last_piece_changed_at = Time.now.utc
+  end
+
   def should_notify?(tracker, old_piece, new_piece)
     tracker.web_hook.present? && !new_piece.error && !old_piece.same_content(new_piece)
   end
