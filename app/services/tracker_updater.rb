@@ -8,6 +8,17 @@ class TrackerUpdater
   end
 
   def update_trackers
+    duration_ms = Benchmark.realtime do
+      update_all_trackers
+    end
+
+    puts "===== Tracker Update Statistics ======"
+    puts "Duration:              %s" % duration_ms
+    puts "Finished At:           %s" % Time.now
+    puts "Last Piece Changed At: %s" % self.last_piece_changed_at
+  end
+
+  def update_all_trackers
     trackers = Tracker.all
     sick_trackers, ok_trackers = trackers.partition{ |t| t.sick? }
 
@@ -52,7 +63,7 @@ class TrackerUpdater
   private
   def save_new_piece(new_piece)
     new_piece.save!
-    @last_piece_changed_at = Time.now.utc
+    @last_piece_changed_at = Time.now
   end
 
   def should_notify?(tracker, old_piece, new_piece)
