@@ -2,7 +2,7 @@
 
 set -e
 
-SHA=$(git rev-parse master)
+SHA=$(git rev-parse --short master)
 BZ="stuff.i/sources.bz2"
 SSH_USER="trakkor"
 
