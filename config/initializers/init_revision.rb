@@ -1,4 +1,4 @@
-revision_path = Rails.root.join("REVISION")
+revision_path = Rails.root.join("REVISION_DEPLOYED")
 Rails.configuration.revision = if File.exists?(revision_path)
   File.read(revision_path).strip
 else
