@@ -6,7 +6,7 @@ gem 'unicorn'
 gem 'therubyracer'
 
 gem 'dynamic_form'
-gem 'sqlite3'
+gem 'pg'
 
 
 # Gems used only for assets and not required
