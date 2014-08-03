@@ -3,6 +3,6 @@
 set -e
 
 git push heroku master
-heroku config:set GIT_REVISION=`git describe --always`
+heroku config:set REVISION_DEPLOYED=`git describe --always`
 git tag deployed master -f
 
