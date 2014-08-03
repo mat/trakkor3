@@ -1,6 +1,13 @@
 
 set -e
 
-cp /home/trakkor/rails_app/db/production.sqlite3 /tmp/production.sqlite3
-bzip2 --best -f /tmp/production.sqlite3
-s3cmd put /tmp/production.sqlite3.bz2 s3://better-idea-box/trakkor/ -v --mime-type='application/x-bzip' >> /tmp/backup-database.log 2>&1
+# Destroy oldest backup first
+heroku pgbackups:destroy `heroku pgbackups | grep "^b" | head -n1 | cut -f 1 -d " "`
+
+# Create a new one...
+heroku pgbackups:capture
+
+# ..and save it locally.
+curl -v --compressed -o db/production.dump `heroku pgbackups:url`
+pg_restore -l db/production.dump
+
