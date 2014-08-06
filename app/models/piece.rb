@@ -43,7 +43,7 @@ class Piece < ActiveRecord::Base
 
   private
   def self.fetch_text(uri, xpath)
-    service_url = "https://getxpath.herokuapp.com"
+    service_url = "http://getxpath.better-idea.org"
     service_params = {url: uri, xpath: xpath}
 
     begin
