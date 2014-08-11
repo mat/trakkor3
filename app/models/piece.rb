@@ -43,7 +43,7 @@ class Piece < ActiveRecord::Base
 
   private
   def self.fetch_text(uri, xpath)
-    service_url = "http://getxpath.better-idea.org"
+    service_url = "http://getxpath.better-idea.org/get"
     service_params = {url: uri, xpath: xpath}
 
     begin
@@ -55,7 +55,7 @@ class Piece < ActiveRecord::Base
 
     if response.success?
       response_json = JSON.parse(response.body)
-      text = response_json.fetch("content")
+      text = response_json.fetch("result")
       error = response_json.fetch("error")
       return [text, error]
     elsif response.code.to_i == 0
