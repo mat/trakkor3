@@ -178,8 +178,9 @@ abbr.timeago {
 }
 
 #changes {
-  background-image: url(../images/feed-icon-28x28.png);
+  background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiAgICAgaWQ9IlJTU2ljb24iCiAgICAgdmlld0JveD0iMCAwIDggOCIgd2lkdGg9IjI1NiIgaGVpZ2h0PSIyNTYiPgoKICA8dGl0bGU+UlNTIGZlZWQgaWNvbjwvdGl0bGU+CgogIDxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+CiAgICAuYnV0dG9uIHtzdHJva2U6IG5vbmU7IGZpbGw6IG9yYW5nZTt9CiAgICAuc3ltYm9sIHtzdHJva2U6IG5vbmU7IGZpbGw6IHdoaXRlO30KICA8L3N0eWxlPgoKICA8cmVjdCAgIGNsYXNzPSJidXR0b24iIHdpZHRoPSI4IiBoZWlnaHQ9IjgiIHJ4PSIxLjUiIC8+CiAgPGNpcmNsZSBjbGFzcz0ic3ltYm9sIiBjeD0iMiIgY3k9IjYiIHI9IjEiIC8+CiAgPHBhdGggICBjbGFzcz0ic3ltYm9sIiBkPSJtIDEsNCBhIDMsMyAwIDAgMSAzLDMgaCAxIGEgNCw0IDAgMCAwIC00LC00IHoiIC8+CiAgPHBhdGggICBjbGFzcz0ic3ltYm9sIiBkPSJtIDEsMiBhIDUsNSAwIDAgMSA1LDUgaCAxIGEgNiw2IDAgMCAwIC02LC02IHoiIC8+Cgo8L3N2Zz4=);
   background-repeat: no-repeat;
+  background-size: 28px 28px;
   line-height: 28px;
   padding-left: 36px;
   vertical-align: middle;
