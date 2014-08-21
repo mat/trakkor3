@@ -45,6 +45,7 @@ class TrackerUpdater
     else
       logger.info("Content unchanged at %s" % [old_piece.text.colorize(:yellow)])
     end
+    truncates_pieces(tracker)
 
     err = new_piece.error
     if err
@@ -57,6 +58,15 @@ class TrackerUpdater
     if should_notify?(tracker, old_piece, new_piece)
       logger.info("POSTing to web hook at %s" % tracker.web_hook)
       notify_change(tracker, old_piece, new_piece)
+    end
+  end
+
+  def truncates_pieces(tracker)
+    max_pieces = 1000
+    if tracker.pieces.count > max_pieces
+      tracker.pieces.order("created_at desc")[max_pieces..-1].each do |piece|
+        piece.destroy
+      end
     end
   end
 
