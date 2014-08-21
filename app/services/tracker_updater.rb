@@ -1,4 +1,3 @@
-
 class TrackerUpdater
   attr_reader :logger
   attr_reader :last_piece_changed_at
@@ -20,7 +19,7 @@ class TrackerUpdater
 
   def update_all_trackers
     trackers = Tracker.all
-    sick_trackers, ok_trackers = trackers.partition{ |t| t.sick? }
+    sick_trackers, ok_trackers = trackers.partition { |t| t.sick? }
 
     sick_trackers.each do |tracker|
       logger.warn("WARN: " + "Skipping sick tracker #{tracker}".colorize(:red))
@@ -36,7 +35,7 @@ class TrackerUpdater
     old_piece = tracker.current_piece
     new_piece = tracker.fetch_piece
 
-    if(!old_piece && new_piece.text.present?)
+    if new_piece.text.present? && !old_piece
       logger.info("Content available for the first time: %s" % [new_piece.text.colorize(:green)])
       save_new_piece(new_piece)
     elsif new_piece.text.present? && !old_piece.same_content(new_piece)
@@ -81,7 +80,7 @@ class TrackerUpdater
   end
 
   def notify_change(tracker, old_piece, new_piece)
-    t = {:name => tracker.name, :uri => tracker.uri, :xpath => tracker.xpath }
+    t = {:name => tracker.name, :uri => tracker.uri, :xpath => tracker.xpath}
     n = {:timestamp => new_piece.created_at.iso8601, :text => new_piece.text}
     o = {:timestamp => old_piece.created_at.iso8601, :text => old_piece.text}
     payload = {:change => {:tracker => t, :new => n, :old => o}}
