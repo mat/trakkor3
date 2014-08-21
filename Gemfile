@@ -53,6 +53,9 @@ end
 group :development do
 end
 
+# Enable gzip/deflate on heroku
+gem 'heroku-deflater', :group => :production
+
 group :test do
  gem "fakeweb"
 end
