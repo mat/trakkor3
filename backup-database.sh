@@ -1,5 +1,5 @@
 
-set -e
+set -ex
 
 # Destroy oldest backup first
 heroku pgbackups:destroy `heroku pgbackups | grep "^b" | head -n1 | cut -f 1 -d " "`

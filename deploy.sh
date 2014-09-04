@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -e
+set -ex
 
 git push heroku master
 heroku config:set REVISION_DEPLOYED=`git describe --always`
