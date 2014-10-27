@@ -7,3 +7,8 @@ db_backup:
 db_import:
 	pg_restore --verbose --clean --no-acl --no-owner -h localhost -U trakkor -d trakkor_development db/production.dump
 
+deploy:
+	git push heroku master
+	heroku config:set REVISION_DEPLOYED=`git describe --always`
+	git tag deployed master -f
+
