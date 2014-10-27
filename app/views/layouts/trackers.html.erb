@@ -12,10 +12,6 @@
 
   <link rel="shortcut icon" href="<%= image_path('favicon.ico') %>" />
 
-  <% if controller.action_name == 'index' %>
-  <link rel="commands" href="http://gist.github.com/9767.txt" />
-  <% end %>
-
   <% if @tracker %>
   <link rel="alternate" type="application/atom+xml" href="<%= "#{url_for(@tracker)}.atom" %>" />
   <% end %>
@@ -55,22 +51,6 @@
           </div>
         </div>
       </div>
-
-  <% if controller.action_name == 'index' %>
-      <div id="sidebar">
-        <div class="block">
-          <h3>Ubiquity integration</h3>
-          <div class="content">
-          <p>As Firefox user you might want to try this  <a href='http://gist.github.com/9767' title="Trakkor's Ubiquity command on GitHub">Ubiquity command</a>.</p>
-          <p>The command allows you to create Trakkors by selecting text on a web page.</p>
-          <p>To use the command, install <a href='https://wiki.mozilla.org/Labs/Ubiquity' title='Ubiquity project on mozilla.org'>the latest Ubiquity</a> and come back here to subscribe to the Trakkor Command.</p>
-          </div>
-        </div>
-
-      </div>
-      <div class="clear"></div>
-  <% end %>
-
     </div>
   </div>
 
