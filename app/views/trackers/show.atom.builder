@@ -17,7 +17,7 @@ atom_feed(:root_url => url_for(:only_path => false)) do |feed|
   feed.link(:href => url_for(:only_path => false, :format => 'atom'), :rel =>'self')
 
   for piece in @tracker.pieces
-    feed.entry(piece, :url => "#{url_for :only_path => false}") do |entry|
+    feed.entry(piece, :url => @tracker.uri) do |entry|
       entry.title(piece.text, :type => 'text')
       entry.content(piece.text, :type => 'text')
 
