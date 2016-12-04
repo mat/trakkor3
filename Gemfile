@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.2.6'
 
-gem 'rails', '3.2.22'
+gem 'rails', '3.2.22.5'
 
 gem 'unicorn'
 gem 'therubyracer'
