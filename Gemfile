@@ -50,6 +50,8 @@ group :production do
   gem 'newrelic_rpm'
 end
 
+gem 'test-unit'
+
 group :development do
 end
 
